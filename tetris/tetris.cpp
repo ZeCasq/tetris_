@@ -634,6 +634,7 @@ int input_data()
 
 	while (1)
 	{
+		system("cls");
 		SetColor(GRAY);
 		gotoxy(10, 7);
 		printf("旨收收收收收收收收收<GAME KEY>收收收收收收收收收旬");
@@ -655,7 +656,7 @@ int input_data()
 		Sleep(10);
 		gotoxy(10, 13);
 		printf("曲收收收收收收收收收收收收收收收收收收收收收收收收收收收收旭");
-		system("cls");
+		
 		gotoxy(10, 3);
 		printf("Select Start level [1-8]:       \b\b\b\b\b\b\b");
 
