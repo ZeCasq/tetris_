@@ -101,6 +101,7 @@ int check_full_line();
 
 int main(int argc, char* argv[])
 {
+
 	int i;
 	int is_gameover = 0;
 	char keytemp;
@@ -127,13 +128,8 @@ int main(int argc, char* argv[])
 					switch (keytemp)
 					{
 					case KEY_UP:		//회전하기
-
-						if (strike_check(block_shape, (block_angle + 1) % 4, block_x, block_y) == 0)
-						{
-							erase_cur_block(block_shape, block_angle, block_x, block_y);
-							block_angle = (block_angle + 1) % 4;
-							show_cur_block(block_shape, block_angle, block_x, block_y);
-						}
+						
+						rotate_block(block_shape, &block_angle, &block_x, &block_y);
 						break;
 					case KEY_LEFT:		//왼쪽으로 이동
 						if (block_x > 1)
@@ -179,14 +175,16 @@ int main(int argc, char* argv[])
 				show_cur_block(block_shape, block_angle, block_x, block_y);
 			}
 
-			if (stage_data[level].clear_line == lines)	//클리어 스테이지
+			if (stage_data[level].clear_line <= lines)	//클리어 스테이지
 			{
 				level++;
 				lines = 0;
+				show_gamestat();
 			}
 			if (is_gameover == 1)
 			{
 				show_gameover();
+				is_gameover = 0;
 				SetColor(GRAY);
 				break;
 			}
@@ -271,13 +269,13 @@ int init()
 	stage_data[6].clear_line = 20;
 	stage_data[7].speed = 10;
 	stage_data[7].stick_rate = 13;
-	stage_data[7].clear_line = 20;
+	stage_data[7].clear_line = 1;
 	stage_data[8].speed = 6;
 	stage_data[8].stick_rate = 12;
-	stage_data[8].clear_line = 20;
+	stage_data[8].clear_line = 1;
 	stage_data[9].speed = 4;
 	stage_data[9].stick_rate = 11;
-	stage_data[9].clear_line = 99999;
+	stage_data[9].clear_line = 1;
 	return 0;
 }
 
@@ -451,7 +449,7 @@ int show_gameover()
 {
 	SetColor(RED);
 	gotoxy(15, 8);
-	printf("┏━━━━━━━━━━━━━┓");
+	printf("┏━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
 	gotoxy(15, 9);
 	printf("┃**************************┃");
 	gotoxy(15, 10);
@@ -459,13 +457,13 @@ int show_gameover()
 	gotoxy(15, 11);
 	printf("┃**************************┃");
 	gotoxy(15, 12);
-	printf("┗━━━━━━━━━━━━━┛");
+	printf("┗━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 	fflush(stdin);
 	Sleep(1000);
-
+	
 	_getche();
 	system("cls");
-
+	score = 0;
 	return 0;
 }
 
@@ -493,8 +491,15 @@ int move_block(int* shape, int* angle, int* x, int* y, int* next_shape)
 	return 0;
 }
 
-int rotate_block(int shape, int* angle, int* x, int* y)
+int rotate_block(int block_shape, int* block_angle, int* block_x, int* block_y)
 {
+	if (strike_check(block_shape, (*block_angle + 1) % 4, *block_x, *block_y) == 0)
+	{
+
+		erase_cur_block(block_shape, *block_angle, *block_x, *block_y);
+		*block_angle = (*block_angle + 1) % 4;
+		show_cur_block(block_shape, *block_angle, *block_x, *block_y);
+	}
 	return 0;
 }
 
@@ -547,7 +552,7 @@ int show_next_block(int shape)
 	for (i = 1; i < 7; i++)
 	{
 		gotoxy(33, i);
-		for (j = 0; j < 6; j++)
+		for (j = 0; j < 10; j++)
 		{
 			if (i == 1 || i == 6 || j == 0 || j == 5)
 			{
@@ -627,14 +632,14 @@ int input_data()
 		printf("Select Start level [1-8]:       \b\b\b\b\b\b\b");
 
 		if (fgets(arr, sizeof(arr), stdin) == NULL) {
-			printf(" 입력 오류가 발생했습니다. 프로그램을 다시 실행해주세요.\n");
+			
 			continue;
 		}
 
 		arr[strcspn(arr, "\n")] = 0;  // 개행 제거
 
 		if (strlen(arr) == 0) {
-			printf("입력이 비어있습니다. 다시 입력해주세요.\n");
+			
 			continue;
 		}
 
@@ -648,15 +653,14 @@ int input_data()
 
 
 		if (!found) {
-			printf("\n 잘못된 입력입니다. 다음 사항을 확인해주세요:\n");
-			printf(" - 정수만 입력해야 합니다 (소수, 문자, 특수기호, 공백 x)\n");
+			
 			continue;
 		}
 
 		i = atoi(arr);
 
 		if (i < 1 || i > 8) {
-			printf("1~8 사이의 정수를 입력해주세요.\n");
+			
 			continue;
 		}
 
