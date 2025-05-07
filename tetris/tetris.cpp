@@ -616,14 +616,54 @@ int input_data()
 	printf("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 
 
-	while (i < 1 || i>8)
+	char arr[100];
+	i;
+	ch;
+
+
+	while (1)
 	{
 		gotoxy(10, 3);
-		printf("Select Start level[1-8]:       \b\b\b\b\b\b\b");
-		if (scanf_s("%d", &i) != 1) {
-			while ((ch = getchar()) != '\n');
+		printf("Select Start level [1-8]:       \b\b\b\b\b\b\b");
+
+		if (fgets(arr, sizeof(arr), stdin) == NULL) {
+			printf(" 입력 오류가 발생했습니다. 프로그램을 다시 실행해주세요.\n");
+			continue;
 		}
+
+		arr[strcspn(arr, "\n")] = 0;  // 개행 제거
+
+		if (strlen(arr) == 0) {
+			printf("입력이 비어있습니다. 다시 입력해주세요.\n");
+			continue;
+		}
+
+		int found = 1;
+		for (int j = 0; arr[j]; j++) {
+			if (!isdigit((unsigned char)arr[j])) {
+				found = 0;
+				break;
+			}
+		}
+
+
+		if (!found) {
+			printf("\n 잘못된 입력입니다. 다음 사항을 확인해주세요:\n");
+			printf(" - 정수만 입력해야 합니다 (소수, 문자, 특수기호, 공백 x)\n");
+			continue;
+		}
+
+		i = atoi(arr);
+
+		if (i < 1 || i > 8) {
+			printf("1~8 사이의 정수를 입력해주세요.\n");
+			continue;
+		}
+
+		break;
 	}
+
+
 
 
 	level = i - 1;
@@ -634,26 +674,26 @@ int input_data()
 int show_logo()
 {
 	int i, j;
-	gotoxy(13, 3);
-	printf("┏━━━━━━━━━━━━━━━━━━━━━━━┓");
+	gotoxy(13, 3);  //전각문자는 2칸으로 인식하는 것을 감안해서 오류를 수정함..tetris 글자 깨진거 오류 수정 완료
+	printf("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
 	Sleep(100);
 	gotoxy(13, 4);
-	printf("┃◆◆◆  ◆◆◆  ◆◆◆   ◆◆     ◆   ◆◆◆ ┃");
+	printf("┃     ■■■   ■■■   ■■■    ■■      ■    ■■     ┃");
 	Sleep(100);
 	gotoxy(13, 5);
-	printf("┃  ◆    ◆        ◆     ◆ ◆    ◆   ◆     ┃");
+	printf("┃      ■    ■      ■     ■ ■     ■   ■       ┃");
 	Sleep(100);
 	gotoxy(13, 6);
-	printf("┃  ◆    ◆◆◆    ◆     ◆◆     ◆     ◆   ┃");
+	printf("┃      ■    ■■■    ■     ■■      ■    ■      ┃");
 	Sleep(100);
 	gotoxy(13, 7);
-	printf("┃  ◆    ◆        ◆     ◆ ◆    ◆       ◆ ┃");
+	printf("┃      ■    ■      ■     ■ ■     ■     ■     ┃");
 	Sleep(100);
 	gotoxy(13, 8);
-	printf("┃  ◆    ◆◆◆    ◆     ◆  ◆   ◆   ◆◆◆ ┃");
+	printf("┃      ■    ■■■    ■     ■  ■    ■   ■■      ┃");
 	Sleep(100);
 	gotoxy(13, 9);
-	printf("┗━━━━━━━━━━━━━━━━━━━━━━━┛");
+	printf("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 
 	gotoxy(28, 20);
 	printf("Please Press Any Key~!");
