@@ -181,15 +181,30 @@ int main(int argc, char* argv[])
 				lines = 0;
 				show_gamestat();
 			}
-			if (level == 10)  // 레벨이 9이면 다 깬거임 <- 레벨은 0부터 8까지이기 때문에
+			if (level == 10)  //고치는중  
 			{
-				system("cls");  //출력창 깔끔하게
-				SetColor(GREEN);  //초록색으로
-				gotoxy(10, 10);
-				printf("모든 레벨을 클리어했습니다! 축하합니다!\n");
-				gotoxy(10, 10);
+				SMALL_RECT windowSize = { 0, 0, 59, 19 };
+				COORD bufferSize = { 60, 20 };
+
+				HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+				SetConsoleWindowInfo(hConsole, TRUE, &windowSize);  
+				SetConsoleScreenBufferSize(hConsole, bufferSize);   
+
+				
+				system("cls");
+				SetColor(GREEN);
+
+				const char* msg = "모든 레벨을 클리어했습니다! 축하합니다!";
+				int msg_len = strlen(msg);
+				int x = (60 - msg_len) / 2;
+				int y = 10;
+
+				gotoxy(x, y);
+				printf("%s", msg);
+				gotoxy((60 - 10) / 2, y + 2);
 				system("pause");
-				exit(0);  // 프로그램 종료시키기
+
+				exit(0);
 			}
 		
 			if (is_gameover == 1)
@@ -281,10 +296,10 @@ int init()
 	stage_data[7].speed = 10;
 	stage_data[7].stick_rate = 13;
 	stage_data[7].clear_line = 1;
-	stage_data[8].speed = 6;
+	stage_data[8].speed = 30;
 	stage_data[8].stick_rate = 12;
 	stage_data[8].clear_line = 1;
-	stage_data[9].speed = 4;
+	stage_data[9].speed = 30;
 	stage_data[9].stick_rate = 11;
 	stage_data[9].clear_line = 1;
 	return 0;
