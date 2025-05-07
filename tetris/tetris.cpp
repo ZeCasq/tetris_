@@ -624,27 +624,7 @@ int input_data()
 {
 	int i = 0;
 	char ch;
-	SetColor(GRAY);
-	gotoxy(10, 7);
-	printf("旨收收收收收收收收收<GAME KEY>收收收收收收收收收旬");
-	Sleep(10);
-	gotoxy(10, 8);
-	printf("早 UP   : Rotate Block        早");
-	Sleep(10);
-	gotoxy(10, 9);
-	printf("早 DOWN : Move One-Step Down  早");
-	Sleep(10);
-	gotoxy(10, 10);
-	printf("早 SPACE: Move Bottom Down    早");
-	Sleep(10);
-	gotoxy(10, 11);
-	printf("早 LEFT : Move Left           早");
-	Sleep(10);
-	gotoxy(10, 12);
-	printf("早 RIGHT: Move Right          早");
-	Sleep(10);
-	gotoxy(10, 13);
-	printf("曲收收收收收收收收收收收收收收收收收收收收收收收收收收收收旭");
+	
 
 
 	char arr[100];
@@ -654,6 +634,28 @@ int input_data()
 
 	while (1)
 	{
+		SetColor(GRAY);
+		gotoxy(10, 7);
+		printf("旨收收收收收收收收收<GAME KEY>收收收收收收收收收旬");
+		Sleep(10);
+		gotoxy(10, 8);
+		printf("早 UP   : Rotate Block        早");
+		Sleep(10);
+		gotoxy(10, 9);
+		printf("早 DOWN : Move One-Step Down  早");
+		Sleep(10);
+		gotoxy(10, 10);
+		printf("早 SPACE: Move Bottom Down    早");
+		Sleep(10);
+		gotoxy(10, 11);
+		printf("早 LEFT : Move Left           早");
+		Sleep(10);
+		gotoxy(10, 12);
+		printf("早 RIGHT: Move Right          早");
+		Sleep(10);
+		gotoxy(10, 13);
+		printf("曲收收收收收收收收收收收收收收收收收收收收收收收收收收收收旭");
+		system("cls");
 		gotoxy(10, 3);
 		printf("Select Start level [1-8]:       \b\b\b\b\b\b\b");
 
