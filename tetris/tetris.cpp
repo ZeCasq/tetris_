@@ -181,6 +181,17 @@ int main(int argc, char* argv[])
 				lines = 0;
 				show_gamestat();
 			}
+			if (level == 10)  // 레벨이 9이면 다 깬거임 <- 레벨은 0부터 8까지이기 때문에
+			{
+				system("cls");  //출력창 깔끔하게
+				SetColor(GREEN);  //초록색으로
+				gotoxy(10, 10);
+				printf("모든 레벨을 클리어했습니다! 축하합니다!\n");
+				gotoxy(10, 10);
+				system("pause");
+				exit(0);  // 프로그램 종료시키기
+			}
+		
 			if (is_gameover == 1)
 			{
 				show_gameover();
