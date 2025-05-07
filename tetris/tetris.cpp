@@ -119,6 +119,7 @@ int main(int argc, char* argv[])
 		show_gamestat();
 		for (i = 1; 1; i++)
 		{
+			
 			if (_kbhit())
 			{
 				keytemp = _getche();
@@ -431,14 +432,17 @@ int strike_check(int shape, int angle, int x, int y)
 	{
 		for (j = 0; j < 4; j++)
 		{
-			if (((x + j) == 0) || ((x + j) == 13))
-				block_dat = 1;
-			else
-				block_dat = total_block[y + i][x + j];
+			if (block[shape][angle][i][j] == 0)
+				continue;
 
+			if (y + i < 0)
+				continue;
 
-			if ((block_dat == 1) && (block[shape][angle][i][j] == 1))																							//ÁÂÃøº®ÀÇ ÁÂÇ¥¸¦ »©±âÀ§ÇÔ
-			{
+			if ((x + j) <= 0 || (x + j) >= 13) {
+				return 1;
+			}
+
+			if (total_block[y + i][x + j] == 1) {
 				return 1;
 			}
 		}
