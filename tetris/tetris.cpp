@@ -8,7 +8,7 @@
 //상수 선언
 //*********************************
 
-#define EXT_KEY			0xffffffe0	//확장키 인식값 
+#define EXT_KEY			0xffffffe0	//확장키 인식값
 #define KEY_LEFT		0x4b
 #define KEY_RIGHT		0x4d
 #define KEY_UP			0x48
@@ -530,6 +530,10 @@ int rotate_block(int block_shape, int* block_angle, int* block_x, int* block_y)
 		*block_angle = (*block_angle + 1) % 4;
 		show_cur_block(block_shape, *block_angle, *block_x, *block_y);
 	}
+	
+	
+	
+	
 	return 0;
 }
 
@@ -638,7 +642,9 @@ int input_data()
 
 	while (1)
 	{
+
 		system("cls");
+
 		SetColor(GRAY);
 		gotoxy(10, 7);
 		printf("┏━━━━━━━━━<GAME KEY>━━━━━━━━━┓");
@@ -660,36 +666,27 @@ int input_data()
 		Sleep(10);
 		gotoxy(10, 13);
 		printf("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
-		
+
 		gotoxy(10, 3);
 		printf("Select Start level [1-8]:       \b\b\b\b\b\b\b");
 
 		if (fgets(arr, sizeof(arr), stdin) == NULL) {
-			
 			continue;
 		}
 
 		arr[strcspn(arr, "\n")] = 0;  // 개행 제거
 
-		if (strlen(arr) == 0) {
-			
+		if (strlen(arr) != 1) {
+			system("cls");
 			continue;
 		}
 
-		int found = 1;
-		for (int j = 0; arr[j]; j++) {
-			if (!isdigit((unsigned char)arr[j])) {
-				found = 0;
-				break;
-			}
-		}
-
-
-		if (!found) {
-			
+	
+		if (~isdigit(arr[0]) == false) {
+			system("cls");
 			continue;
 		}
-
+		
 		i = atoi(arr);
 
 		if (i < 1 || i > 8) {
@@ -702,9 +699,8 @@ int input_data()
 
 
 
-
-	level = i - 1;
 	system("cls");
+	level = i - 1;
 	return 0;
 }
 
